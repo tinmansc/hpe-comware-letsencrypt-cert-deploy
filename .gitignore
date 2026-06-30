@@ -1,0 +1,31 @@
+# Secrets
+secrets.yaml
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Logs and backups
+*.log
+hpe1950_backups/
+hpe_comware_backups/
+*-startup-check-*.cfg
+*-startup-before-hpe-cert-*.cfg
+*-saved-after-hpe-cert-*.cfg
+backup-*.cfg
+
+# Temporary local safety copies
+*.before-*
+*.before_*
+*.bak
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

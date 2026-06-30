@@ -1,0 +1,15 @@
+# Example Home Assistant automation action.
+#
+# This starts the certificate deployer app after your Let's Encrypt certificate
+# has renewed.
+#
+# Recommended app mode:
+#   deploy
+#
+# In deploy mode, the app runs check first and only applies changes if check
+# succeeds.
+
+- action: hassio.app_start
+  metadata: {}
+  data:
+    app: local_hpe_comware_cert_deployer

@@ -1,0 +1,15 @@
+configuration:
+  mode:
+    name: Run mode
+    description: >-
+      deploy is the safest normal mode: it runs check first, then apply only if
+      check succeeds. check only verifies the certificate and startup config and
+      does not change the switches. apply runs the apply path directly; the
+      Python script still performs internal checks.
+  target:
+    name: Target switch
+    description: >-
+      Select all to process every configured HPE 1950 switch, or select one
+      switch for troubleshooting an individual device.
+
+network: {}

@@ -1,0 +1,49 @@
+# Example switch inventory.
+#
+# The Home Assistant app version stores this same information in the app
+# Options screen. This file is provided as a readable example and as a useful
+# reference for CLI or future non-Home-Assistant use.
+#
+# Do not commit your real internal hostnames, IP addresses, or switch names
+# unless you are comfortable making them public.
+
+switches:
+  # Friendly switch name.
+  #
+  # This name is used in logs and status output.
+  # Keep it simple: letters, numbers, dashes, and underscores are safest.
+  CoreSwitch:
+    # DNS hostname used for certificate validation and SNI.
+    #
+    # For a wildcard cert like *.example.com, use a hostname covered by that
+    # certificate, such as coreswitch.example.com.
+    host: coreswitch.example.com
+
+    # Management IP address used for SSH, SFTP, and HTTPS.
+    ip: 192.168.1.10
+
+    # Comware PKI domain used for certificate import.
+    #
+    # Most HPE 1950 deployments can use hp-1950.
+    pki_domain: hp-1950
+
+    # Comware SSL server policy bound to HTTPS.
+    #
+    # Most HPE 1950 deployments can use hp-1950.
+    ssl_policy: hp-1950
+
+    # Startup config file that should receive the saved running config.
+    #
+    # Find this on the switch with:
+    #   display startup
+    #
+    # Common value:
+    #   flash:/startup.cfg
+    startup_config: flash:/startup.cfg
+
+  OfficeSwitch:
+    host: officeswitch.example.com
+    ip: 192.168.1.11
+    pki_domain: hp-1950
+    ssl_policy: hp-1950
+    startup_config: flash:/startup.cfg

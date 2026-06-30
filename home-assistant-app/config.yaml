@@ -1,0 +1,144 @@
+name: HPE Comware Cert Deployer
+version: "0.2.0"
+slug: hpe_comware_cert_deployer
+description: Deploys Let's Encrypt TLS certificates to HPE Comware switches using OpenSSL, SSH, and SFTP
+url: https://github.com/YOUR_GITHUB_USERNAME/hpe-comware-letsencrypt-cert-deploy
+
+arch:
+  - aarch64
+  - amd64
+
+# This app is intended to run once, do the certificate check/deploy work,
+# write logs, and exit.
+startup: once
+boot: manual
+init: false
+
+# host_network is used because the app needs to reach switches on the local
+# management network using SSH, SFTP, and HTTPS.
+host_network: true
+
+# config:rw lets the app read /config/secrets.yaml and write persistent logs
+# and backups under /config/scripts.
+#
+# ssl:rw lets the app read Home Assistant certificate files such as:
+#   /ssl/fullchain.pem
+#   /ssl/privkey.pem
+map:
+  - config:rw
+  - ssl:rw
+
+options:
+  # Run mode for the app.
+  #
+  # deploy:
+  #   Recommended normal mode. Runs check first. If check passes, runs apply.
+  #
+  # check:
+  #   Read-only verification mode. Does not change the switch.
+  #
+  # apply:
+  #   Direct deployment mode. The Python script still performs safety checks,
+  #   but this skips the app runner's separate check-before-apply workflow.
+  mode: deploy
+
+  certificates:
+    # Full certificate chain created by the Home Assistant Let's Encrypt add-on.
+    # This usually does not need to change.
+    fullchain: /ssl/fullchain.pem
+
+    # Private key created by the Home Assistant Let's Encrypt add-on.
+    #
+    # Keep this file private.
+    # Do not copy it into GitHub.
+    # Do not paste it into issues, logs, or examples.
+    privkey: /ssl/privkey.pem
+
+  backup:
+    # If true, the script downloads the switch startup config to Home Assistant
+    # so it can calculate SHA256 and verify expected saved configuration lines.
+    #
+    # Recommended: true
+    #
+    # Security note:
+    # Downloaded switch configs may contain sensitive management details.
+    download_startup_config: true
+
+    # If true, the script creates a backup copy of the startup config on the
+    # switch flash before making changes.
+    #
+    # Recommended: true
+    #
+    # This gives you a switch-side recovery point if something unexpected
+    # happens during certificate deployment.
+    create_on_switch_backup: true
+
+  switches:
+    # Each switch entry below describes one Comware switch.
+    #
+    # To temporarily skip a switch, set enabled: false.
+    # To deploy to a switch, set enabled: true.
+    #
+    # The script processes all enabled switches.
+    #
+    # For your first run, start with one enabled test switch and mode: check.
+    - name: CoreSwitch
+
+      # enabled controls whether this switch is included when the app runs.
+      enabled: true
+
+      # DNS hostname used for certificate validation and SNI.
+      #
+      # For a wildcard certificate, this should be a hostname covered by that
+      # certificate, such as coreswitch.example.com for *.example.com.
+      host: coreswitch.example.com
+
+      # Management IP address used for SSH, SFTP, and HTTPS connection.
+      ip: 192.168.1.10
+
+      # Startup config file that should receive the saved running config.
+      #
+      # Use the value shown by the Comware command:
+      #   display startup
+      #
+      # Common value:
+      #   flash:/startup.cfg
+      startup_config: flash:/startup.cfg
+
+      # Comware PKI domain used for certificate import.
+      #
+      # Most HPE 1950 deployments can use hp-1950.
+      pki_domain: hp-1950
+
+      # Comware SSL server policy bound to HTTPS.
+      #
+      # Most HPE 1950 deployments can use hp-1950.
+      ssl_policy: hp-1950
+
+    - name: OfficeSwitch
+      enabled: false
+      host: officeswitch.example.com
+      ip: 192.168.1.11
+      startup_config: flash:/startup.cfg
+      pki_domain: hp-1950
+      ssl_policy: hp-1950
+
+schema:
+  mode: list(deploy|check|apply)
+
+  certificates:
+    fullchain: str
+    privkey: str
+
+  backup:
+    download_startup_config: bool
+    create_on_switch_backup: bool
+
+  switches:
+    - name: str
+      enabled: bool
+      host: str
+      ip: str
+      startup_config: str
+      pki_domain: str
+      ssl_policy: str

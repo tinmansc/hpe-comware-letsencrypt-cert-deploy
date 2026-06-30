@@ -1,0 +1,39 @@
+# HPE / Comware certificate deployment settings.
+#
+# The Home Assistant app version exposes these in the Options screen.
+# This file is provided as a readable example and as a useful reference for
+# CLI or future non-Home-Assistant use.
+
+certificates:
+  # Full certificate chain created by the Home Assistant Let's Encrypt add-on.
+  #
+  # Default Home Assistant path:
+  #   /ssl/fullchain.pem
+  fullchain: /ssl/fullchain.pem
+
+  # Private key created by the Home Assistant Let's Encrypt add-on.
+  #
+  # Default Home Assistant path:
+  #   /ssl/privkey.pem
+  #
+  # Security note:
+  # Never commit your real private key to GitHub.
+  privkey: /ssl/privkey.pem
+
+backup:
+  # If true, the script downloads the switch startup config to Home Assistant
+  # so it can calculate SHA256 and verify expected saved configuration lines.
+  #
+  # Recommended: true
+  #
+  # Set to false only if you understand the reduced assurance tradeoff.
+  #
+  # Security note:
+  # Downloaded switch configs may contain sensitive management information.
+  download_startup_config: true
+
+  # If true, the script creates a backup copy of the startup config on the
+  # switch flash before making changes.
+  #
+  # Recommended: true
+  create_on_switch_backup: true
