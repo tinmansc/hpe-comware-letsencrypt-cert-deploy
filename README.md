@@ -1,4 +1,4 @@
-# HPE Comware Let's Encrypt Certificate Deploy
+# HPE Comware Certificate Sync for Home Assistant
 
 Deploy Let's Encrypt TLS certificates from Home Assistant to HPE 1950 / Comware switches using SSH, SFTP, OpenSSL, and native Comware PKI import.
 
