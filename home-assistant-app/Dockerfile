@@ -11,6 +11,9 @@ RUN apk add --no-cache \
     curl
 
 COPY run.sh /run.sh
-RUN chmod 755 /run.sh
+COPY deploy_cert_hpe_comware.py /app/deploy_cert_hpe_comware.py
+
+RUN chmod 755 /run.sh \
+    && chmod 755 /app/deploy_cert_hpe_comware.py
 
 CMD [ "/run.sh" ]

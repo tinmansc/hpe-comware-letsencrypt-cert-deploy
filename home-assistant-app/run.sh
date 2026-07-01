@@ -3,7 +3,7 @@
 set -u
 
 LOG="/config/scripts/hpe_comware_cert_deploy.log"
-SCRIPT="/config/scripts/deploy_cert_hpe_comware.py"
+SCRIPT="/app/deploy_cert_hpe_comware.py"
 OPTIONS_FILE="/data/options.json"
 
 log_line() {

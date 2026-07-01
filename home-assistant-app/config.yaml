@@ -1,5 +1,5 @@
 name: HPE Comware Cert Deployer
-version: "0.2.0"
+version: "0.2.1"
 slug: hpe_comware_cert_deployer
 description: Deploys Let's Encrypt TLS certificates to HPE Comware switches using OpenSSL, SSH, and SFTP
 url: https://github.com/YOUR_GITHUB_USERNAME/hpe-comware-letsencrypt-cert-deploy

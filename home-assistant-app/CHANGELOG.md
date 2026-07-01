@@ -2,6 +2,14 @@
 
 # Changelog
 
+## 0.2.1
+
+### Changed
+
+- Bundled `deploy_cert_hpe_comware.py` inside the Home Assistant app container.
+- Updated the app runner to execute the bundled script from `/app/deploy_cert_hpe_comware.py`.
+- Removed the requirement for users to manually place the Python script in `/config/scripts` before running the app.
+
 ## 0.2.0
 
 ### Changed
